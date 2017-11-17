@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block extra_js %}
+<script async defer type="text/javascript" src="static/homepage.js"></script>
+
+{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container-fluid">
+<form action= "/activity_time" method="POST">
+    <h3>Please choose activities below that you might want to visit along your trip.</h3><br>
+    <h4>To continue, please fill out the following fields:</h4>
+    <br>
+    <br>
+        <div class="row">
+            <div class="col-xs-12 col-md-6">
+                <label for="end_location">Where do you want to go?<br>
+                Please enter an address. <input type="textbox" name="end_location" id="end_location" placeholder="Street Address City State"></label></input>
+    <br>
+    <br>
+                Select a type of activity you want to do in between:
+    <br>
+    <br>
+    <form>
+        <input type="text" name="activity" id="activity" placeholder="Activity">
+        <button type="submit" style="padding :  0.5em 1em;" id="yelp_button"> Get a list of places</button>
+    </form>
+        <div id="businesses">
+
+        </div>
+        <div name="activity_type" id="activity_type">
+            <p>{% for name in names %}</p>
+            <ul>
+                <li>
+                    <input id="name-1" type = "text" name="activity" value="{{name[0]}}">
+                    <label for="name-1">{{ name[0] }}</label>
+                </li>
+                <li>
+                    <input id="name-2" type = "checkbox" name="activity_type_cycling" value="{{name[0]}}">
+                    <label for="name-2">{{ name[0] }}</label>
+                </li>
+            </ul>
+            <p><input type = "checkbox" name="activity_type" value="{{name[0]}}"> {{ name[0] }}</p>
+            <p>{% endfor %}</p>
+        </div>
+    <br>
+        <div id="activity_location_preference">
+            <h5>Do you prefer an activity...</h5>
+            <select name="activity_location_preference" class="form-control">
+            <option value="near_user"> Closer to your current location </option><br>
+            <option value="near_end_location" selected="near_end_location"> Closer to your destination </option><br>
+        </select>
+        <br>
+        <br>
+        </div>
+            <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <input class="btn btn-default" type="submit" id="submit" value="Let's get started">
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+            <label class="hidden">lat</label><input type="hidden" id="lat" name="user_lat" value=""/>
+            <label class="hidden">lng</label><input type="hidden" id="lng" name="user_lng" value=""/>
+    </form>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div id="homepage-map">
+            </div>
+        </div>
+    </div>
+</div>
+
+    <br>
+    <br>
+    <br>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+$(form).submit(function(e){
+    e.preventDefaults();
+    console.log("getPlaces");
+    var activity = document.getElementById('activity');
+    $.ajax({
+        url: "activity_time",
+        method: "post",
+        contentType: 'application/json',
+        data: JSON.stringify({
+            activity: activity.value
+        }),
+        dataType: 'json',
+    }).done(function (object) {
+        var text = document.getElementById('businesses');
+        if (object['success'] === true) {
+            console.log('getPlaces works!')
+            text.innerHTML = '"' + object['data'] + '"';
+            // id = object['id'];
+        } else {
+            alert("Internal Error!");
+        }
+    });
+});
+</script>
+
+
+
+
+
+{% endblock %}

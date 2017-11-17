@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <title>  Bay Area Finder
+     </title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!--      // <script src="https://maps.googleapis.com/maps/api/js?key={{KEY_KEY}}&libraries=places"></script> -->
+    <!--  // <script src="http://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+<script src="https://code.jquery.com/jquery.js"></script>
+
+     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTUsqTR-0D9ug_2EBITnpA0YSDjyg4W6I&callback=initMap"
+  type="text/javascript"></script>
+
+<link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
+
+    <link rel="stylesheet" href="static/stylesheet.css">
+{% block extra_js %}{% endblock %}
+
+</head>
+<body id="body">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <p class="navbar-text navbar-fixed-top">
+            Bay Area Finder</p>
+    </div>
+
+</nav>
+
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="static/jquery.geocomplete.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/geocomplete/1.7.0/jquery.geocomplete.js"></script> -->
+
+
+{% block content %} Put your body here.
+
+{% endblock %}
+
+
+</body>
+</html>

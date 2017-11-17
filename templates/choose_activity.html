@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block extra_js %}
+<!-- <script type="text/javascript" src="static/choose_activity.js"></script> -->
+{% endblock %}
+{% block content %}
+
+<br>
+<br>
+<br>
+<br>
+<body>
+<div class="container">
+    <div class="row">
+    <div class="col-lg-6 col-lg-offset-3 col-centered">
+    <span id="middle-header"><h3> Here are businesses you can visit that match your criteria.</h3> <br>
+    <h4>Please choose one business to visit. </h4></span>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 col-lg-6 col-lg-offset-3 col-centered">
+            {% for business in activity %}
+            <br>
+            <br>
+            <form action="/choose", method="POST" >
+                    <br><br>
+                    <input type= "radio" name="business_phone" value="{{ business.phone }}"> 
+                    <div class="list-group""panel-heading"><strong>{{ business.name }}</strong><br>
+                        <li class="list-group-item panel-body">{{ business.price }}</li><br>
+                        <li class="list-group-item","panel-body">{{ business.categories.0.title}}</li><br>
+                        <li class="list-group-item","panel-body">{{ business.phone }} </li><br>
+                        <li class="list-group-item","panel-body">{{ business.address.address1 }}
+                        {{ business.address.city }} 
+                        {{ business.address.zipcode }}</li><br>
+                        Rating on Yelp 
+                        <li class="list-group-item","panel-body">{{ business.rating }}</li><br>
+                    </div>
+
+        <input type="hidden" id="business_name_{{business.phone}}" value="{{business.name}}" name="business_name_{{business.phone}}"/>
+        <input type="hidden" id="business_coordinate_lat_{{business.phone}}" value="{{business.coordinates.lat}}" name="business_lat_{{business.phone}}"/>
+        <input type="hidden" id="business_coordinates_lng" value="{{business.coordinates.lng}}" name="business_lng_{{business.phone}}"/>
+        <input type="hidden" id="business_image_{{business.phone}}" value="{{business.image_url}}" name="business_image_{{business.phone}}"/>
+        <input type="hidden" id="business_rating_{{business.phone}}" value="{{business.rating}}" name="business_rating_{{business.phone}}"/>
+        <input type="hidden" id="business_url_{{business.phone}}" value="{{business.url}}" name="business_url_{{business.phone}}"/>
+
+        <input type="hidden" id="business_street_{{business.phone}}" value="{{business.address.address1}}"name="business_street_{{business.phone}}"/>
+        <input type="hidden" id="business_city_{{business.phone}}" value="{{business.address.city}}"name="business_city_{{business.phone}}"/>
+        <input type="hidden" id="business_zipcode_{{business.phone}}" value="{{business.address.zipcode}}"name="business_zipcode_{{business.phone}}"/>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<input type="hidden" id="end_lat" name="end_lat" value="{{ end_lat }}"/> 
+<input type="hidden" id="end_lng" name="end_lng" value="{{ end_lng }}"/>
+<input type="hidden" id="end_location" name="end_location" value="{{ end_location }}"/>
+<input type="hidden" id="user_lat" name="user_lat" value="{{ user_lat }}"/> 
+<input type="hidden" id="user_lng" name="user_lng" value="{{ user_lng }}"/>
+<input type="hidden" id="start_location" name="start_location" value="{{ start_location }}"/>
+
+<!-- <div id= "halfwayLat">
+    <input type="text" id="halfway_lat" name="halfway_lat" value=""/> 
+</div>
+<div id= "halwayLng">
+    <input type="text" id="halfway_lng" name="halfway_lng" value=""/>
+</div> -->
+
+<br>
+
+<br>
+    <div class="container">
+        <div class="col-xs-4 col-lg-6 col-lg-offset-3 col-centered">
+        <input class="btn btn-default floating-action-button" type="submit" value="Continue to map">
+        </div>
+    </div>
+</form>
+
+
+<!-- put navbar similar to Angular demo where the next html page of route options is a tab -->
+</body>
+
+{% endblock %}
